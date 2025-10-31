@@ -1,0 +1,328 @@
+{
+	"info": {
+		"_postman_id": "12345678-1234-1234-1234-123456789012",
+		"name": "Physics Simulation API",
+		"description": "Collection for testing the Physics Simulation API endpoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Health Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/health",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"health"
+					]
+				},
+				"description": "Check the health status of the API and its dependencies"
+			},
+			"response": []
+		},
+		{
+			"name": "Submit Single Job",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"container_image\": \"sim:local\",\n  \"params\": {\n    \"length\": 1.0,\n    \"time_steps\": 100,\n    \"diffusivity\": 0.01,\n    \"initial_temp\": 100.0\n  },\n  \"metadata\": {\n    \"project\": \"postman-test\",\n    \"user\": \"test-user\",\n    \"description\": \"Single job submitted via Postman\"\n  },\n  \"created_by\": \"postman-user\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/jobs",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"jobs"
+					]
+				},
+				"description": "Submit a single simulation job"
+			},
+			"response": []
+		},
+		{
+			"name": "Submit Parameter Sweep",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"container_image\": \"sim:local\",\n  \"sweep\": [\n    {\"length\": 1.0, \"time_steps\": 50, \"diffusivity\": 0.01},\n    {\"length\": 1.0, \"time_steps\": 100, \"diffusivity\": 0.01},\n    {\"length\": 1.0, \"time_steps\": 200, \"diffusivity\": 0.01}\n  ],\n  \"metadata\": {\n    \"project\": \"parameter-sweep\",\n    \"user\": \"researcher\",\n    \"description\": \"Time step parameter sweep\"\n  },\n  \"created_by\": \"postman-user\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/jobs",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"jobs"
+					]
+				},
+				"description": "Submit a parameter sweep (multiple jobs with different parameters)"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Job Details",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/v1/jobs/{{job_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"jobs",
+						"{{job_id}}"
+					]
+				},
+				"description": "Get details for a specific job by ID"
+			},
+			"response": []
+		},
+		{
+			"name": "List All Jobs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/v1/jobs?page=1&size=10",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"jobs"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						}
+					]
+				},
+				"description": "List jobs with pagination"
+			},
+			"response": []
+		},
+		{
+			"name": "List Jobs by Status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/v1/jobs?status=success&page=1&size=5",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"jobs"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "success"
+						},
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "size",
+							"value": "5"
+						}
+					]
+				},
+				"description": "List jobs filtered by status"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Job Logs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/v1/jobs/{{job_id}}/logs",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"jobs",
+						"{{job_id}}",
+						"logs"
+					]
+				},
+				"description": "Get logs for a specific job"
+			},
+			"response": []
+		},
+		{
+			"name": "Stream Job Logs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/v1/jobs/{{job_id}}/logs/stream",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"jobs",
+						"{{job_id}}",
+						"logs",
+						"stream"
+					]
+				},
+				"description": "Stream job logs (Server-Sent Events)"
+			},
+			"response": []
+		},
+		{
+			"name": "Download Job Results",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/v1/jobs/{{job_id}}/result",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"jobs",
+						"{{job_id}}",
+						"result"
+					]
+				},
+				"description": "Download job results as a zip file"
+			},
+			"response": []
+		},
+		{
+			"name": "Cancel Job",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/v1/jobs/{{job_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"jobs",
+						"{{job_id}}"
+					]
+				},
+				"description": "Cancel a running or queued job"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Job Statistics",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/v1/jobs/stats",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"jobs",
+						"stats"
+					]
+				},
+				"description": "Get overall job statistics"
+			},
+			"response": []
+		},
+		{
+			"name": "Readiness Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/ready",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"ready"
+					]
+				},
+				"description": "Kubernetes readiness probe endpoint"
+			},
+			"response": []
+		},
+		{
+			"name": "Liveness Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/live",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"live"
+					]
+				},
+				"description": "Kubernetes liveness probe endpoint"
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"description": "Base URL of the Physics Simulation API"
+		},
+		{
+			"key": "job_id",
+			"value": "550e8400-e29b-41d4-a716-446655440000",
+			"description": "Job ID for testing (replace with actual job ID)"
+		}
+	]
+}
