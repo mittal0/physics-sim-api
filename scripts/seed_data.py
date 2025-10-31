@@ -43,7 +43,7 @@ def seed_sample_jobs():
                     "diffusivity": 0.01,
                     "initial_temp": 100.0,
                 },
-                "metadata": {
+                "job_metadata": {
                     "project": "sample-heat-transfer",
                     "user": "demo-user",
                     "description": "Basic heat transfer simulation"
@@ -63,7 +63,7 @@ def seed_sample_jobs():
                     "diffusivity": 0.005,
                     "initial_temp": 150.0,
                 },
-                "metadata": {
+                "job_metadata": {
                     "project": "extended-simulation",
                     "user": "researcher",
                     "description": "Extended simulation with finer resolution"
@@ -81,7 +81,7 @@ def seed_sample_jobs():
                     "diffusivity": 0.02,
                     "initial_temp": 75.0,
                 },
-                "metadata": {
+                "job_metadata": {
                     "project": "quick-test",
                     "user": "demo-user",
                     "description": "Quick test simulation"
@@ -100,7 +100,7 @@ def seed_sample_jobs():
                     "diffusivity": 0.015,
                     "initial_temp": 120.0,
                 },
-                "metadata": {
+                "job_metadata": {
                     "project": "parameter-sweep",
                     "user": "researcher",
                     "description": "Part of parameter sweep study"
@@ -120,7 +120,7 @@ def seed_sample_jobs():
                 container_image=job_data["container_image"],
                 command=job_data.get("command"),
                 params=job_data["params"],
-                metadata=job_data["metadata"],
+                job_metadata=job_data.get("job_metadata", {}),
                 created_by=job_data["created_by"],
                 status=job_data["status"],
                 created_at=created_at,

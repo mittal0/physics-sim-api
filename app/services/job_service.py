@@ -49,7 +49,7 @@ class JobService:
             container_image=container_image,
             command=command,
             params=job_data.params or {},
-            metadata=job_data.metadata.dict() if job_data.metadata else {},
+            job_metadata=job_data.metadata.dict() if job_data.metadata else {},
             created_by=job_data.created_by,
             created_at=datetime.utcnow(),
             resource_limits={
@@ -91,7 +91,7 @@ class JobService:
                 container_image=container_image,
                 command=command,
                 params=param_set,
-                metadata=job_data.metadata.dict() if job_data.metadata else {},
+                job_metadata=job_data.metadata.dict() if job_data.metadata else {},
                 created_by=job_data.created_by,
                 created_at=datetime.utcnow(),
                 parent_job_id=parent_job_id,

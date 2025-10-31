@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # PostgreSQL Database
   db:
@@ -71,11 +69,13 @@ services:
       - REDIS_URL=redis://redis:6379/0
       - CELERY_BROKER_URL=redis://redis:6379/0
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
-      - ARTIFACTS_PATH=/app/artifacts
+      - ARTIFACTS_PATH=/tmp/artifacts
     volumes:
-      - ./artifacts:/app/artifacts
+      - ./artifacts:/tmp/artifacts  # Mount to /tmp/artifacts for Docker access
       - /var/run/docker.sock:/var/run/docker.sock  # For Docker-in-Docker
       - .:/app  # Development volume mount
+    privileged: true  # Allow Docker access
+    user: root  # Run as root for Docker access
     depends_on:
       db:
         condition: service_healthy

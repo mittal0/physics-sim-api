@@ -20,11 +20,11 @@ RUN useradd --create-home --shell /bin/bash app
 WORKDIR /app
 
 # Copy and install Python dependencies
-COPY pyproject.toml .
+COPY pyproject.toml README.md ./
+COPY app/ ./app/
 RUN pip install -e .[dev]
 
-# Copy application code
-COPY app/ ./app/
+# Copy additional application code
 COPY alembic/ ./alembic/
 COPY alembic.ini .
 
@@ -65,7 +65,10 @@ RUN apt-get update && apt-get install -y \
     docker.io \
     && rm -rf /var/lib/apt/lists/*
 
+# Add app user to docker group and set up permissions
+RUN groupadd -f docker && usermod -aG docker app
+
 USER app
 
 # Command for Celery worker
-CMD ["celery", "-A", "app.tasks.celery_app", "worker", "--loglevel=info", "--concurrency=2"]
+CMD ["celery", "-A", "app.tasks.celery_app", "worker", "--loglevel=info", "--concurrency=2", "--queues=simulation,celery"]

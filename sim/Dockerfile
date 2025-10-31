@@ -25,14 +25,14 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY run_sim.py .
 COPY __init__.py .
 
+# Make simulation script executable (before switching user)
+RUN chmod +x run_sim.py
+
 # Create output directory
 RUN mkdir -p /tmp/output && chown -R sim:sim /tmp/output
 
 # Switch to sim user
 USER sim
-
-# Make simulation script executable
-RUN chmod +x run_sim.py
 
 # Health check - verify the simulation can run with minimal parameters
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \

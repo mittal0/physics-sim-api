@@ -67,7 +67,7 @@ class Job(Base):
     container_image = Column(String(255), nullable=False)
     command = Column(Text, nullable=True)
     params = Column(JSON, nullable=False, default=dict)
-    metadata = Column(JSON, nullable=True, default=dict)
+    job_metadata = Column(JSON, nullable=True, default=dict)
     
     # User information
     created_by = Column(String(255), nullable=True)
@@ -110,7 +110,7 @@ class Job(Base):
             "container_image": self.container_image,
             "command": self.command,
             "params": self.params,
-            "metadata": self.metadata,
+            "metadata": self.job_metadata,
             "created_by": self.created_by,
             "created_at": self.created_at.isoformat() if self.created_at else None,
             "started_at": self.started_at.isoformat() if self.started_at else None,

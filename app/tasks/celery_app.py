@@ -29,9 +29,9 @@ celery_app.conf.update(
     worker_disable_rate_limits=False,
     task_compression="gzip",
     result_compression="gzip",
-    task_routes={
-        "app.tasks.simulation.run_simulation": {"queue": "simulation"},
-    },
+    # task_routes={
+    #     "app.tasks.simulation.run_simulation": {"queue": "simulation"},
+    # },
 )
 
 # Optional: Configure for AWS SQS if enabled

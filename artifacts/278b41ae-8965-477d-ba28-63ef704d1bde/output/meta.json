@@ -1,0 +1,22 @@
+{
+  "simulation_type": "1D_heat_equation",
+  "timestamp": "2025-10-31T01:47:20.999683",
+  "parameters": {
+    "length": 1.0,
+    "time_steps": 30,
+    "spatial_steps": 100,
+    "diffusivity": 0.01,
+    "initial_temp": 100.0,
+    "boundary_temp": 0.0,
+    "end_time": 1.0,
+    "dx": 0.010101010101010102,
+    "dt": 0.03333333333333333,
+    "courant_number": 3.2669999999999995
+  },
+  "statistics": {
+    "max_temperature": 2.159651149116194e+21,
+    "min_temperature": -2.2661839376188262e+21,
+    "final_max_temperature": 2.159651149116194e+21,
+    "center_temperature_final": -1.2856439076188654e+18
+  }
+}

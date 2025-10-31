@@ -2,7 +2,7 @@ from datetime import datetime
 from typing import Any, Dict, List, Optional, Union
 from uuid import UUID
 
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, validator, model_validator
 
 
 class JobParams(BaseModel):
@@ -79,6 +79,16 @@ class JobResponse(BaseModel):
     runtime_seconds: Optional[float]
     resource_limits: Optional[Dict[str, Any]]
     parent_job_id: Optional[UUID]
+    
+    @model_validator(mode='before')
+    @classmethod
+    def map_job_metadata(cls, values):
+        """Map job_metadata field to metadata for API response"""
+        if hasattr(values, 'job_metadata'):
+            values.metadata = values.job_metadata
+        elif isinstance(values, dict) and 'job_metadata' in values:
+            values['metadata'] = values['job_metadata']
+        return values
     
     class Config:
         from_attributes = True

@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(mkdir -p app/{api,core,models,services,tasks} sim tests/{unit,integration} scripts alembic/versions infra/aws examples docs artifacts .github/workflows)",
-      "Bash(chmod:*)"
-    ],
-    "deny": []
-  }
-}

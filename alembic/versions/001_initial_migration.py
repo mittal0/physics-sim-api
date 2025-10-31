@@ -24,7 +24,7 @@ def upgrade() -> None:
     sa.Column('container_image', sa.String(length=255), nullable=False),
     sa.Column('command', sa.Text(), nullable=True),
     sa.Column('params', sa.JSON(), nullable=False),
-    sa.Column('metadata', sa.JSON(), nullable=True),
+    sa.Column('job_metadata', sa.JSON(), nullable=True),
     sa.Column('created_by', sa.String(length=255), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=False),
     sa.Column('started_at', sa.DateTime(), nullable=True),

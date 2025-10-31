@@ -47,7 +47,8 @@ def run_simulation(self, job_id: str) -> Dict[str, Any]:
         db.commit()
         
         # Create artifacts directory for this job
-        job_artifacts_path = os.path.join(settings.artifacts_path, str(job_id))
+        # Use the host-mounted artifacts path that Docker can access
+        job_artifacts_path = os.path.join("/tmp", "artifacts", str(job_id))
         os.makedirs(job_artifacts_path, exist_ok=True)
         
         # Initialize Docker client
